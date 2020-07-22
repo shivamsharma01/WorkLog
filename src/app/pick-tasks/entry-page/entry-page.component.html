@@ -1,0 +1,16 @@
+<app-dashboard></app-dashboard>
+<p-accordion [multiple]="true" *ngIf="form">
+  <form [formGroup]="form">
+    <div formArrayName="tasks">
+      <div *ngFor="let task of tasks.controls; let i = index">
+        <!-- The repeated alias template -->
+        <p-accordionTab
+          header="{{ tasks.at(i).get('label').value }}"
+          [selected]="!i"
+        >
+          <app-entry [taskForm]="task"></app-entry>
+        </p-accordionTab>
+      </div>
+    </div>
+  </form>
+</p-accordion>

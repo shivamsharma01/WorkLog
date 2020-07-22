@@ -1,0 +1,24 @@
+.header {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  text-align: center;
+  font-style: italic;
+  font-variant: all-petite-caps;
+  font-size: x-large;
+}
+.green {
+  background-color: green;
+}
+.red {
+  background-color: red;
+}
+.yellow {
+  background-color: yellow;
+}

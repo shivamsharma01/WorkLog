@@ -1,0 +1,38 @@
+<p-table [value]="logs">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Duration {{ "(" + totalTaskTime + ")" }}</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-log>
+    <tr>
+      <td>{{ log.start }}</td>
+      <td>{{ log.end }}</td>
+      <td>{{ log.duration }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<section>
+  <div class="box">
+    <ngb-timepicker
+      meridian="true"
+      size="large"
+      [(ngModel)]="start"
+    ></ngb-timepicker>
+  </div>
+  <div class="box">
+    <ngb-timepicker
+      meridian="true"
+      size="large"
+      [(ngModel)]="end"
+    ></ngb-timepicker>
+  </div>
+  <div class="box">
+    <button (click)="calculateDuration()">Calculate Duration</button>
+  </div>
+  <div class="box">
+    <button (click)="add()">Add</button>
+  </div>
+</section>
