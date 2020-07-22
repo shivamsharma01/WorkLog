@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+body {
+  background-image: url("./assets/bg-1.jpg");
+  background-color: #000;
+  background-size: cover; /* or contain depending on what you want */
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: auto;
+  height: -webkit-fill-available;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: Lato;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.grid {
+  display: grid;
+  text-align: center;
+  align-content: center;
+  height: -webkit-fill-available;
+}
+
+.button-div {
+  text-align: center;
+}
