@@ -1,14 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
-body {
-  background-image: url("./assets/bg-1.jpg");
-  background-color: #000;
-  background-size: cover; /* or contain depending on what you want */
-  background-position: center;
-  background-repeat: no-repeat;
-  margin: auto;
-  height: -webkit-fill-available;
-}
 
 html {
   box-sizing: border-box;
@@ -21,13 +12,26 @@ html {
   box-sizing: inherit;
 }
 
-.grid {
-  display: grid;
-  text-align: center;
-  align-content: center;
-  height: -webkit-fill-available;
-}
-
 .button-div {
   text-align: center;
+}
+
+body .welcome {
+  background-image: url("./assets/bg-1.jpg");
+  background-color: #000;
+  background-size: cover; /* or contain depending on what you want */
+  background-position: center;
+  background-repeat: no-repeat;
+  height: -webkit-fill-available;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid,
+.row,
+[class^="col-"],
+[class*=" col-"] {
+  padding: 0px;
+  margin: 0px;
 }

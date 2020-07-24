@@ -1,11 +1,16 @@
-<section class="grid">
+<section class="welcome grid">
   <div class="p-col-12">
-    <a [routerLink]="'pick-dataset'" class="button instagram"
-      ><span class="gradient"></span>Pick Dataset</a
+    <button
+      [routerLink]="'pick-dataset'"
+      style="cursor: no-drop;"
+      disabled
+      class="button instagram"
     >
+      <span class="gradient"></span>Pick Dataset
+    </button>
   </div>
   <div class="p-col-12">
-    <a [routerLink]="'pick-tasks'" class="button instagram"
+    <a [routerLink]="['/work-log/dev', 'dev']" class="button instagram"
       ><span class="gradient"></span>Manual Entry</a
     >
   </div>

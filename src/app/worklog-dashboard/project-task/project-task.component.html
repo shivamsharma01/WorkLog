@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="card">
+    <app-dialog
+      *ngIf="displayDialog"
+      [type]="'project'"
+      [visible]="displayDialog"
+      [header]="'Enter Details'"
+      (detailsEvent)="addProject($event)"
+      (closeEvent)="closeProject($event)"
+    ></app-dialog>
+  </div>
+  <ng-container *ngFor="let project of projects.controls; let i = index">
+    <div class="card project-template-card">
+      <app-dev-task [form]="project" [index]="i"></app-dev-task>
+    </div>
+  </ng-container>
+  <button class="bottom" (click)="displayDialog = true">Add Project (+)</button>
+</div>

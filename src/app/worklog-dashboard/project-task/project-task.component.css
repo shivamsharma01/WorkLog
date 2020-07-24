@@ -1,0 +1,14 @@
+.project-template-card {
+  text-align: center;
+  margin: 10px 5px;
+  border: 2px solid dodgerblue;
+}
+.bottom {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  left: 0px;
+  right: 0px;
+  background-color: dodgerblue;
+  color: #fff;
+}

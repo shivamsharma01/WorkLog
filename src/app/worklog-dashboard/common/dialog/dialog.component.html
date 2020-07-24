@@ -1,0 +1,71 @@
+<ng-container [ngSwitch]="type">
+  <ng-container *ngSwitchCase="'project'">
+    <p-dialog
+      header="{{ header }}"
+      [(visible)]="visible"
+      [modal]="true"
+      [style]="{ width: '50vw' }"
+      [baseZIndex]="10000"
+      [draggable]="false"
+      [resizable]="false"
+    >
+      <div class="p-col-12 p-md-12">
+        <div class="ui-inputgroup">
+          <input #inp1 type="text" pInputText placeholder="Project Name" />
+          <input #inp2 type="text" pInputText placeholder="Reporting Manager" />
+        </div>
+      </div>
+      <p-footer>
+        <button
+          type="button"
+          pButton
+          icon="pi pi-check"
+          (click)="addProject(inp1.value, inp2.value)"
+          label="Submit"
+        ></button>
+        <button
+          type="button"
+          pButton
+          icon="pi pi-times"
+          (click)="close()"
+          label="Cancel"
+          class="ui-button-secondary"
+        ></button>
+      </p-footer>
+    </p-dialog>
+  </ng-container>
+  <ng-container *ngSwitchCase="'task'">
+    <p-dialog
+      header="{{ header }}"
+      [(visible)]="visible"
+      [modal]="true"
+      [style]="{ width: '50vw' }"
+      [baseZIndex]="10000"
+      [draggable]="false"
+      [resizable]="false"
+    >
+      <div class="p-col-12 p-md-12">
+        <div class="ui-inputgroup">
+          <input #taskName type="text" pInputText placeholder="Task Name" />
+        </div>
+      </div>
+      <p-footer>
+        <button
+          type="button"
+          pButton
+          icon="pi pi-check"
+          (click)="addTask(taskName.value)"
+          label="Submit"
+        ></button>
+        <button
+          type="button"
+          pButton
+          icon="pi pi-times"
+          (click)="close()"
+          label="Cancel"
+          class="ui-button-secondary"
+        ></button>
+      </p-footer>
+    </p-dialog>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,14 @@
+.bottom {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  left: 0px;
+  right: 0px;
+  height: 100%;
+  background-color: green;
+  color: #fff;
+}
+.container-fluid {
+  width: 100%;
+  margin: auto;
+}

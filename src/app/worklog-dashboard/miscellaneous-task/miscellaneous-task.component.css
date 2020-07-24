@@ -1,0 +1,30 @@
+.task-add-button,
+.remove-button {
+  color: #fff;
+  height: 50px;
+  display: block;
+  border: none;
+  text-align: center;
+  background-color: #4caf50;
+  cursor: pointer;
+}
+.task-add-button {
+  float: right;
+}
+.remove-button {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+:host >>> .ui-accordion.ui-widget.ui-help {
+  padding: 0px 0px 50px 0px;
+  position: relative;
+}
+:host >>> .ui-accordion-header {
+  margin-top: 50px;
+}
+
+:host >>> .ui-accordion-content-wrapper {
+  position: relative;
+}

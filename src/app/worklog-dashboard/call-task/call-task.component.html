@@ -1,0 +1,27 @@
+<p-accordion>
+  <div *ngFor="let task of tasks.controls; let i = index">
+    <p-accordionTab header="{{ task.get('label').value }}">
+      <app-entry-display
+        [taskForm]="task"
+        [i]="i"
+        (removeEmitter)="removeActivity($event)"
+      ></app-entry-display>
+      <app-entry [taskNum]="i" (timeEmitter)="activity($event, i)"></app-entry>
+      <button class="remove-button" type="button" (click)="removeTask(i)">
+        Remove
+      </button>
+    </p-accordionTab>
+  </div>
+  <button type="button" class="task-add-button" (click)="displayDialog = true">
+    Add Task
+  </button>
+</p-accordion>
+
+<app-dialog
+  *ngIf="displayDialog"
+  [type]="'task'"
+  [visible]="displayDialog"
+  [header]="'Enter Task Name & Log Hours'"
+  (taskEvent)="addTask($event)"
+  (closeEvent)="close($event)"
+></app-dialog>

@@ -12,7 +12,6 @@ export class NgbTimeStringAdapter extends NgbTimeAdapter<string> {
     if (!value) {
       return null;
     }
-    console.log(value);
     const split = value.split(":");
     return {
       hour: parseInt(split[0], 10),

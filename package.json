@@ -24,6 +24,8 @@
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
+    "docx": "^5.2.2",
+    "jquery": "^3.5.1",
     "moment": "^2.27.0",
     "primeflex": "^2.0.0-rc.1",
     "primeicons": "^4.0.0",

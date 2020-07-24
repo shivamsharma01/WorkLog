@@ -1,0 +1,34 @@
+<form [formGroup]="taskForm" novalidate *ngIf="table && table.length > 0">
+  <p-table [value]="table.controls">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>
+          Duration {{ " [ " + (taskForm.get("time").value | duration) + " ]" }}
+        </th>
+        <th>
+          Remove
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData ngFor let-i="rowIndex">
+      <tr>
+        <td>
+          {{ rowData.get("startTime").value }}
+        </td>
+        <td>
+          {{ rowData.get("endTime").value }}
+        </td>
+        <td>
+          {{ rowData.get("formattedDuration").value }}
+        </td>
+        <td>
+          <button type="button" (click)="removeActivity(i)">
+            remove
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</form>

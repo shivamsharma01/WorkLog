@@ -1,15 +1,28 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { WelcomeComponent } from "./welcome/welcome.component";
-import { PickTasksComponent } from "./pick-tasks/pick-tasks.component";
 import { PickDatasetComponent } from "./pick-dataset/pick-dataset.component";
-import { EntryPageComponent } from "./pick-tasks/entry-page/entry-page.component";
+import { WelcomeComponent } from "./welcome/welcome.component";
+import { WorklogDashboardComponent } from "./worklog-dashboard/worklog-dashboard.component";
+import { ProjectTaskComponent } from "./worklog-dashboard/project-task/project-task.component";
+import { CallTaskComponent } from "./worklog-dashboard/call-task/call-task.component";
+import { DiscussionTaskComponent } from "./worklog-dashboard/discussion-task/discussion-task.component";
+import { MiscellaneousTaskComponent } from "./worklog-dashboard/miscellaneous-task/miscellaneous-task.component";
+import { FinalComponent } from "./worklog-dashboard/final/final.component";
 
 const routes: Routes = [
   { path: "", component: WelcomeComponent },
-  { path: "pick-tasks", component: PickTasksComponent },
-  { path: "entry-page", component: EntryPageComponent },
   { path: "pick-dataset", component: PickDatasetComponent },
+  {
+    path: "work-log/:id",
+    component: WorklogDashboardComponent,
+    children: [
+      { path: "dev", component: ProjectTaskComponent },
+      { path: "call", component: CallTaskComponent },
+      { path: "discussion", component: DiscussionTaskComponent },
+      { path: "miscellaneous", component: MiscellaneousTaskComponent },
+      { path: "final", component: FinalComponent },
+    ],
+  },
 ];
 
 @NgModule({

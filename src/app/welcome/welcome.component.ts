@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
@@ -7,12 +7,6 @@ import { Router } from "@angular/router";
   styleUrls: ["./welcome.component.css"],
 })
 export class WelcomeComponent implements OnInit {
-  templateValue: string = "pick-tasks";
-
   constructor(private router: Router) {}
   ngOnInit(): void {}
-
-  handleClick() {
-    this.router.navigate([this.templateValue]);
-  }
 }

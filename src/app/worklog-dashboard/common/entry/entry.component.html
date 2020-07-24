@@ -1,0 +1,35 @@
+<section [ngClass]="checked == false ? 'duration' : 'limit'">
+  <div class="box">
+    Duration<p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>Limit
+  </div>
+  <ng-container [ngSwitch]="checked">
+    <ng-container *ngSwitchCase="true">
+      <div class="box">
+        <ngb-timepicker
+          meridian="true"
+          size="large"
+          [(ngModel)]="start"
+        ></ngb-timepicker>
+      </div>
+      <div class="box">
+        <ngb-timepicker
+          meridian="true"
+          size="large"
+          [(ngModel)]="end"
+        ></ngb-timepicker>
+      </div>
+      <div class="box">
+        <button (click)="calculateDuration()">Calculate Duration</button>
+        <button (click)="add()">Add</button>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <div class="box2">
+        <input type="text" pInputText [(ngModel)]="duration" />
+      </div>
+      <div class="box">
+        <button (click)="add()">Add</button>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>

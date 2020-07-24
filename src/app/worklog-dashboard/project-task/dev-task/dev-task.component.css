@@ -1,0 +1,47 @@
+/* .ui-inputgroup {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.entry-template {
+  text-align: center;
+}
+
+.task-add-button,
+.remove-button,
+.remove-project {
+  color: #fff;
+  height: 50px;
+  display: block;
+  border: none;
+  text-align: center;
+  background-color: #4caf50;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.task-add-button {
+  float: right;
+}
+.remove-button {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.remove-project {
+  display: inline;
+}
+:host >>> .ui-accordion.ui-widget.ui-help {
+  padding: 0px 0px 50px 0px;
+  position: relative;
+}
+:host >>> .ui-accordion-header {
+  margin-top: 50px;
+}
+
+:host >>> .ui-accordion-content-wrapper {
+  position: relative;
+}
