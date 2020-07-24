@@ -11,20 +11,14 @@
           <router-outlet></router-outlet>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-          <button
-            class="bottom"
-            [routerLink]="['../../work-log/' + next, next]"
-          >
+          <button class="bottom" [routerLink]="['../work-log/' + next]">
             <span>Next</span>
           </button>
         </div>
       </ng-container>
       <ng-container *ngSwitchCase="'middle'">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-          <button
-            class="bottom"
-            [routerLink]="['../../work-log/' + prev, prev]"
-          >
+          <button class="bottom" [routerLink]="['../work-log/' + prev]">
             <span>Previous</span>
           </button>
         </div>
@@ -32,20 +26,15 @@
           <router-outlet></router-outlet>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-          <button
-            class="bottom"
-            [routerLink]="['../../work-log/' + next, next]"
-          >
+          <button class="bottom" [routerLink]="['../work-log/' + next]">
+            >
             <span>Next</span>
           </button>
         </div>
       </ng-container>
       <ng-container *ngSwitchCase="'last'">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-          <button
-            class="bottom"
-            [routerLink]="['../../work-log/' + prev, prev]"
-          >
+          <button class="bottom" [routerLink]="['../work-log/' + prev]">
             <span>Previous</span>
           </button>
         </div>

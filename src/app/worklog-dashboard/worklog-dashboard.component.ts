@@ -1,7 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, FormArray } from "@angular/forms";
-import { AppService } from "../app.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { AppService, Relation } from "../app.service";
+import {
+  ActivatedRoute,
+  Router,
+  NavigationEnd,
+  RouterEvent,
+} from "@angular/router";
+import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-worklog-dashboard",
@@ -27,20 +33,30 @@ export class WorklogDashboardComponent implements OnInit {
       calls: new FormArray([]),
       discussions: new FormArray([]),
       miscellaneous: new FormArray([]),
+      break: new FormArray([]),
     });
     this.service.form = this.form;
-    this.router.events.subscribe((e) => {
-      console.log(e);
-    });
+    this.router.events
+      .pipe(filter((e, i) => e instanceof NavigationEnd))
+      .subscribe((e: RouterEvent) => {
+        this.update(this.getCurrentActivity(e.url));
+      });
     this.activatedRoute.paramMap.subscribe((params) => {
-      console.log(params);
-      const cur = params.get("id");
-      const relation = this.service.map.get(cur);
-      this.service.updateHeader(relation.name);
-      this.prev = relation.prev;
-      this.next = relation.next;
-      this.type =
-        this.prev && this.next ? "middle" : this.prev ? "last" : "first";
+      this.update(this.getCurrentActivity(this.router.url));
     });
+    this.service.updateTimeAdd(60);
+  }
+
+  getCurrentActivity(url: string): Relation {
+    let cur = url.substring(url.lastIndexOf("/") + 1);
+    return this.service.map.get(cur);
+  }
+
+  update(relation: Relation) {
+    this.service.updateHeader(relation.name);
+    this.prev = relation.prev;
+    this.next = relation.next;
+    this.type =
+      this.prev && this.next ? "middle" : this.prev ? "last" : "first";
   }
 }

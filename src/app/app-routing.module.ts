@@ -7,20 +7,20 @@ import { ProjectTaskComponent } from "./worklog-dashboard/project-task/project-t
 import { CallTaskComponent } from "./worklog-dashboard/call-task/call-task.component";
 import { DiscussionTaskComponent } from "./worklog-dashboard/discussion-task/discussion-task.component";
 import { MiscellaneousTaskComponent } from "./worklog-dashboard/miscellaneous-task/miscellaneous-task.component";
-import { FinalComponent } from "./worklog-dashboard/final/final.component";
+import { DocComponent } from "./worklog-dashboard/doc/doc.component";
 
 const routes: Routes = [
   { path: "", component: WelcomeComponent },
   { path: "pick-dataset", component: PickDatasetComponent },
   {
-    path: "work-log/:id",
+    path: "work-log",
     component: WorklogDashboardComponent,
     children: [
       { path: "dev", component: ProjectTaskComponent },
       { path: "call", component: CallTaskComponent },
       { path: "discussion", component: DiscussionTaskComponent },
       { path: "miscellaneous", component: MiscellaneousTaskComponent },
-      { path: "final", component: FinalComponent },
+      { path: "final", component: DocComponent },
     ],
   },
 ];

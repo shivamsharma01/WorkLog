@@ -23,7 +23,6 @@ import { MessageService } from "primeng/api";
 import { WorklogDashboardComponent } from "./worklog-dashboard/worklog-dashboard.component";
 import { HeaderComponent } from "./worklog-dashboard/header/header.component";
 import { EntryComponent } from "./worklog-dashboard/common/entry/entry.component";
-import { FinalComponent } from "./worklog-dashboard/final/final.component";
 import { EntryDisplayComponent } from "./worklog-dashboard/common/entry-display/entry-display.component";
 import { ProjectTaskComponent } from "./worklog-dashboard/project-task/project-task.component";
 import { DevTaskComponent } from "./worklog-dashboard/project-task/dev-task/dev-task.component";
@@ -32,6 +31,7 @@ import { DurationPipe } from "./worklog-dashboard/common/duration.pipe";
 import { CallTaskComponent } from "./worklog-dashboard/call-task/call-task.component";
 import { DiscussionTaskComponent } from "./worklog-dashboard/discussion-task/discussion-task.component";
 import { MiscellaneousTaskComponent } from "./worklog-dashboard/miscellaneous-task/miscellaneous-task.component";
+import { DocComponent } from "./worklog-dashboard/doc/doc.component";
 
 @NgModule({
   declarations: [
@@ -42,9 +42,9 @@ import { MiscellaneousTaskComponent } from "./worklog-dashboard/miscellaneous-ta
     HeaderComponent,
     DevTaskComponent,
     EntryComponent,
-    FinalComponent,
     EntryDisplayComponent,
     ProjectTaskComponent,
+    DocComponent,
     DialogComponent,
     DurationPipe,
     CallTaskComponent,

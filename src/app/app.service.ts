@@ -96,8 +96,8 @@ export class AppService {
   }
 
   getFormatedTime(mins: number, emitMsg: boolean): string {
-    let hr,
-      min,
+    let hr: number,
+      min: number,
       msg = "";
     hr = ~~(mins / 60);
     min = mins % 60;
