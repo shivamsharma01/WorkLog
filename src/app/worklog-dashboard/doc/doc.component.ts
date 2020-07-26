@@ -5,17 +5,10 @@ import {
   TableRow,
   Paragraph,
   TableCell,
-  WidthType,
-  HeightRule,
   VerticalAlign,
-  HeadingLevel,
-  TextDirection,
   TextRun,
-  UnderlineType,
   AlignmentType,
   Table,
-  ShadingType,
-  BorderStyle,
 } from "docx";
 import { AppService } from "src/app/app.service";
 @Component({
@@ -158,30 +151,15 @@ export class DocComponent implements OnInit {
   }
 
   getOtherRows(document: Doc): TableRow[] {
-    let time;
     let activities: OtherActivity[] = [];
     activities.push(new OtherActivity("- Break", 60));
-    if (document.calls.length) {
-      time = 0;
-      document.calls.forEach((task) => {
-        time += Number(task.time);
-      });
-      activities.push(new OtherActivity("- Calls", time));
-    }
-    if (document.discussions.length) {
-      time = 0;
-      document.discussions.forEach((task) => {
-        time += Number(task.time);
-      });
-      activities.push(new OtherActivity("- Discussions", time));
-    }
-    if (document.miscellaneous.length) {
-      time = 0;
-      document.miscellaneous.forEach((task) => {
-        time += Number(task.time);
-      });
-      activities.push(new OtherActivity("- Miscellaneous", time));
-    }
+    activities.push(new OtherActivity("- Calls", Number(document.calls.time)));
+    activities.push(
+      new OtherActivity("- Discussions", Number(document.discussions.time))
+    );
+    activities.push(
+      new OtherActivity("- Miscellaneous", Number(document.miscellaneous.time))
+    );
     activities = activities.filter((a) => a.time);
     return [
       this.getOtherRow(activities),
@@ -258,9 +236,9 @@ export class DocComponent implements OnInit {
 export class Doc {
   totalTime: number;
   projects: Project[];
-  calls: Task[];
-  discussions: Task[];
-  miscellaneous: Task[];
+  calls: Task;
+  discussions: Task;
+  miscellaneous: Task;
 }
 
 export class Activity {

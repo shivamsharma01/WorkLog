@@ -30,10 +30,18 @@ export class WorklogDashboardComponent implements OnInit {
     this.form = new FormGroup({
       totalTime: new FormControl(0),
       projects: new FormArray([]),
-      calls: new FormArray([]),
-      discussions: new FormArray([]),
-      miscellaneous: new FormArray([]),
-      break: new FormArray([]),
+      calls: new FormGroup({
+        logTable: new FormArray([]),
+        time: new FormControl(0),
+      }),
+      discussions: new FormGroup({
+        logTable: new FormArray([]),
+        time: new FormControl(0),
+      }),
+      miscellaneous: new FormGroup({
+        logTable: new FormArray([]),
+        time: new FormControl(0),
+      }),
     });
     this.service.form = this.form;
     this.router.events
