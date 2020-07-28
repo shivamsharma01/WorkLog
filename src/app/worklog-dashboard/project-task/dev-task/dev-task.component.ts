@@ -91,7 +91,6 @@ export class DevTaskComponent implements OnInit {
   }
 
   removeTask(index: number) {
-    console.log(index);
     const duration = Number(this.tasks.at(index).get("time").value);
     this.tasks.removeAt(index);
 

@@ -13,7 +13,8 @@ import { Time } from "../time";
 export class EntryComponent implements OnInit {
   start: NgbTimeStruct;
   end: NgbTimeStruct;
-  duration: number;
+  hour: number = 0;
+  min: number = 0;
   checked: boolean = false;
   @Input() taskNum: number;
   @Output() timeEmitter = new EventEmitter<Time>();
@@ -24,12 +25,16 @@ export class EntryComponent implements OnInit {
 
   add() {
     if (!this.checked) {
-      if (!this.service.validateDuration(this.duration)) {
+      if (
+        !this.service.validateHour(this.hour) ||
+        !this.service.validateMin(this.min, this.hour)
+      ) {
         return;
       }
-      let time = new Time("-", "-", this.duration);
+      let time = new Time("-", "-", Number(this.hour * 60) + Number(this.min));
       this.timeEmitter.emit(time);
-      this.duration = 0;
+      this.hour = 0;
+      this.min = 0;
       return;
     }
     let start = this.service.getTime(this.start);

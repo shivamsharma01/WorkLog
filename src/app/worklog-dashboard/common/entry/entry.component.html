@@ -25,7 +25,10 @@
     </ng-container>
     <ng-container *ngSwitchDefault>
       <div class="box2">
-        <input type="text" pInputText [(ngModel)]="duration" />
+        <input type="text" pInputText [(ngModel)]="hour" placeholder="hours" />
+      </div>
+      <div class="box2">
+        <input type="text" pInputText [(ngModel)]="min" placeholder="mins" />
       </div>
       <div class="box">
         <button (click)="add()">Add</button>

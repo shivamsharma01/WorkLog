@@ -193,9 +193,20 @@ export class AppService {
     return true;
   }
 
-  validateDuration(duration: number): boolean {
-    if (!duration || isNaN(duration)) {
-      this.callMessageService("error", "Please Enter A Valid Duration.");
+  validateHour(duration: number): boolean {
+    if (isNaN(duration)) {
+      this.callMessageService("error", "Please Enter Valid Hour(s).");
+      return false;
+    }
+    return true;
+  }
+
+  validateMin(duration: number, hours: number): boolean {
+    if (isNaN(duration)) {
+      this.callMessageService("error", "Please Enter Valid Min(s)");
+      return false;
+    } else if (!duration && !hours) {
+      this.callMessageService("error", "Time Logged Should Be Greater Than 0.");
       return false;
     }
     return true;
