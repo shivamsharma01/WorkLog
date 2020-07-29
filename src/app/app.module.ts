@@ -10,6 +10,7 @@ import { AccordionModule } from "primeng/accordion";
 import { TableModule } from "primeng/table";
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
+import { InputSwitchModule } from "primeng/inputswitch";
 
 import { MessageService } from "primeng/api";
 
@@ -60,6 +61,7 @@ import { DocComponent } from "./worklog-dashboard/doc/doc.component";
     TableModule,
     ButtonModule,
     DialogModule,
+    InputSwitchModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

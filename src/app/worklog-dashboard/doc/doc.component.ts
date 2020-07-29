@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import * as docx from "docx";
-import { saveAs } from "file-saver";
+import save from "save-file";
 import {
   TableRow,
   Paragraph,
@@ -61,7 +61,6 @@ export class DocComponent {
   getProjectRow(project: Project): TableRow[] {
     const rows = [],
       lines = project.tasks.length;
-    let row;
     rows.push(
       new TableRow({
         height: {
@@ -81,7 +80,7 @@ export class DocComponent {
       })
     );
     for (let i = 1; i < project.tasks.length; i++) {
-      row.push(
+      rows.push(
         new TableRow({
           height: {
             height: 500,
@@ -258,7 +257,7 @@ export class DocComponent {
 
   save(doc: docx.File) {
     docx.Packer.toBlob(doc).then((blob) => {
-      saveAs(blob, "example.docx");
+      save(blob, "example.docx");
       console.log("Document created successfully");
     });
   }
