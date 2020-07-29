@@ -8,6 +8,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastModule } from "primeng/toast";
 import { AccordionModule } from "primeng/accordion";
 import { TableModule } from "primeng/table";
+import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
 
 import { MessageService } from "primeng/api";
@@ -57,6 +58,7 @@ import { DocComponent } from "./worklog-dashboard/doc/doc.component";
     ToastModule,
     AccordionModule,
     TableModule,
+    ButtonModule,
     DialogModule,
   ],
   providers: [MessageService],
