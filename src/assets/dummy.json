@@ -1,0 +1,144 @@
+{
+  "totalTime": 540,
+  "projects": [
+    {
+      "managerName": "Swati  ",
+      "projectName": "MPB  ",
+      "tasks": [
+        {
+          "label": "worked on Ganesha box changes, rakhi_box branch code merged with new branch",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "137",
+              "formattedDuration": "2 Hrs 17 Mins."
+            }
+          ],
+          "time": 137
+        },
+        {
+          "label": "PDP code optimised and committed",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "10",
+              "formattedDuration": "10 Mins."
+            }
+          ],
+          "time": 10
+        },
+        {
+          "label": "master branch code merged with rakhi_box & build reviewed",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "26",
+              "formattedDuration": "26 Mins."
+            }
+          ],
+          "time": 26
+        },
+        {
+          "label": "CB code committed",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "9",
+              "formattedDuration": "9 Mins."
+            }
+          ],
+          "time": 9
+        },
+        {
+          "label": "Looked into NumberFormatException crash, item click changes done & code optimised",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "57",
+              "formattedDuration": "57 Mins."
+            }
+          ],
+          "time": 57
+        },
+        {
+          "label": "Looked into deep link flow on MPB website click",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "35",
+              "formattedDuration": "35 Mins."
+            }
+          ],
+          "time": 35
+        },
+        {
+          "label": "Working on new cart view",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "100",
+              "formattedDuration": "1 Hr 40 Mins."
+            }
+          ],
+          "time": 100
+        }
+      ],
+      "time": 374
+    },
+    {
+      "projectName": "Ongraviti",
+      "managerName": "Priyanshu ",
+      "tasks": [
+        {
+          "label": "build reviewed",
+          "logTable": [
+            {
+              "startTime": "-",
+              "endTime": "-",
+              "duration": "16",
+              "formattedDuration": "16 Mins."
+            }
+          ],
+          "time": 16
+        }
+      ],
+      "time": 16
+    }
+  ],
+  "miscellaneous": {
+    "label": "",
+    "logTable": [],
+    "time": 0
+  },
+  "discussions": {
+    "label": "",
+    "logTable": [
+      {
+        "startTime": "-",
+        "endTime": "-",
+        "duration": "51",
+        "formattedDuration": "51 Mins."
+      }
+    ],
+    "time": 51
+  },
+  "calls": {
+    "label": "",
+    "logTable": [
+      {
+        "startTime": "-",
+        "endTime": "-",
+        "duration": "39",
+        "formattedDuration": "39 Mins."
+      }
+    ],
+    "time": 39
+  }
+}

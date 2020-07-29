@@ -1,33 +1,29 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { AppRoutingModule } from "./app-routing.module";
+import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AppRoutingModule } from "./app-routing.module";
 
-import { ToastModule } from "primeng/toast";
-import { ButtonModule } from "primeng/button";
-import { TableModule } from "primeng/table";
-import { CheckboxModule } from "primeng/checkbox";
-import { DropdownModule } from "primeng/dropdown";
-import { RadioButtonModule } from "primeng/radiobutton";
-import { AccordionModule } from "primeng/accordion";
-import { DialogModule } from "primeng/dialog";
-import { InputSwitchModule } from "primeng/inputswitch";
-import { InputTextModule } from "primeng/inputtext";
-import { CarouselModule } from "primeng/carousel";
-import { AppComponent } from "./app.component";
-import { PickDatasetComponent } from "./pick-dataset/pick-dataset.component";
-import { WelcomeComponent } from "./welcome/welcome.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToastModule } from "primeng/toast";
+import { AccordionModule } from "primeng/accordion";
+import { TableModule } from "primeng/table";
+import { DialogModule } from "primeng/dialog";
+
 import { MessageService } from "primeng/api";
+
+import { DurationPipe } from "./worklog-dashboard/common/duration.pipe";
+
+import { AppComponent } from "./app.component";
+import { WelcomeComponent } from "./welcome/welcome.component";
+import { PickDatasetComponent } from "./pick-dataset/pick-dataset.component";
 import { WorklogDashboardComponent } from "./worklog-dashboard/worklog-dashboard.component";
 import { HeaderComponent } from "./worklog-dashboard/header/header.component";
 import { EntryComponent } from "./worklog-dashboard/common/entry/entry.component";
 import { EntryDisplayComponent } from "./worklog-dashboard/common/entry-display/entry-display.component";
+import { DialogComponent } from "./worklog-dashboard/common/dialog/dialog.component";
 import { ProjectTaskComponent } from "./worklog-dashboard/project-task/project-task.component";
 import { DevTaskComponent } from "./worklog-dashboard/project-task/dev-task/dev-task.component";
-import { DialogComponent } from "./worklog-dashboard/common/dialog/dialog.component";
-import { DurationPipe } from "./worklog-dashboard/common/duration.pipe";
 import { CallTaskComponent } from "./worklog-dashboard/call-task/call-task.component";
 import { DiscussionTaskComponent } from "./worklog-dashboard/discussion-task/discussion-task.component";
 import { MiscellaneousTaskComponent } from "./worklog-dashboard/miscellaneous-task/miscellaneous-task.component";
@@ -40,35 +36,28 @@ import { DocComponent } from "./worklog-dashboard/doc/doc.component";
     PickDatasetComponent,
     WorklogDashboardComponent,
     HeaderComponent,
-    DevTaskComponent,
+    DialogComponent,
     EntryComponent,
     EntryDisplayComponent,
     ProjectTaskComponent,
-    DocComponent,
-    DialogComponent,
-    DurationPipe,
+    DevTaskComponent,
     CallTaskComponent,
     DiscussionTaskComponent,
     MiscellaneousTaskComponent,
+    DocComponent,
+    DurationPipe,
   ],
   imports: [
     BrowserModule,
-    ToastModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    ButtonModule,
-    DropdownModule,
-    CheckboxModule,
-    TableModule,
-    AccordionModule,
-    InputTextModule,
-    InputSwitchModule,
-    DialogModule,
-    CarouselModule,
-    RadioButtonModule,
     ReactiveFormsModule,
     NgbModule,
+    ToastModule,
+    AccordionModule,
+    TableModule,
+    DialogModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import * as docx from "docx";
 import { saveAs } from "file-saver";
 import {
@@ -19,220 +19,39 @@ import { AppService } from "src/app/app.service";
   templateUrl: "./doc.component.html",
   styleUrls: ["./doc.component.css"],
 })
-export class DocComponent implements OnInit {
+export class DocComponent {
   constructor(private service: AppService) {}
 
-  ngOnInit(): void {}
   click() {
-    //const document: Doc = this.service.form.value;
-    const document = {
-      totalTime: 540,
-      projects: [
-        {
-          managerName: "Swati  ",
-          projectName: "MPB  ",
-          tasks: [
-            {
-              label:
-                "worked on Ganesha box changes, rakhi_box branch code merged with new branch",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "137",
-                  formattedDuration: "2 Hrs 17 Mins.",
-                },
-              ],
-              time: 137,
-            },
-            {
-              label: "PDP code optimised and committed",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "10",
-                  formattedDuration: "10 Mins.",
-                },
-              ],
-              time: 10,
-            },
-            {
-              label:
-                "master branch code merged with rakhi_box & build reviewed",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "26",
-                  formattedDuration: "26 Mins.",
-                },
-              ],
-              time: 26,
-            },
-            {
-              label: "CB code committed",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "9",
-                  formattedDuration: "9 Mins.",
-                },
-              ],
-              time: 9,
-            },
-            {
-              label:
-                "Looked into NumberFormatException crash, item click changes done & code optimised",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "57",
-                  formattedDuration: "57 Mins.",
-                },
-              ],
-              time: 57,
-            },
-            {
-              label: "Looked into deep link flow on MPB website click",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "35",
-                  formattedDuration: "35 Mins.",
-                },
-              ],
-              time: 35,
-            },
-            {
-              label: "Working on new cart view",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "100",
-                  formattedDuration: "1 Hr 40 Mins.",
-                },
-              ],
-              time: 100,
-            },
-          ],
-          time: 374,
-        },
-        {
-          projectName: "Ongraviti",
-          managerName: "Priyanshu ",
-          tasks: [
-            {
-              label: "build reviewed",
-              logTable: [
-                {
-                  startTime: "-",
-                  endTime: "-",
-                  duration: "16",
-                  formattedDuration: "16 Mins.",
-                },
-              ],
-              time: 16,
-            },
-          ],
-          time: 16,
-        },
-      ],
-      miscellaneous: {
-        label: "",
-        logTable: [],
-        time: 0,
-      },
-      discussions: {
-        label: "",
-        logTable: [
-          {
-            startTime: "-",
-            endTime: "-",
-            duration: "51",
-            formattedDuration: "51 Mins.",
-          },
+    const document: Doc = this.service.form.value,
+      doc = new docx.Document(),
+      table = new Table({
+        rows: [
+          this.getTopRow(),
+          ...this.getProjectRows(document.projects),
+          ...this.getOtherRows(document),
         ],
-        time: 51,
-      },
-      calls: {
-        label: "",
-        logTable: [
-          {
-            startTime: "-",
-            endTime: "-",
-            duration: "39",
-            formattedDuration: "39 Mins.",
-          },
-        ],
-        time: 39,
-      },
-    };
-
-    const doc = new docx.Document();
-    const table = new Table({
-      rows: [
-        this.getTopRow(),
-        ...this.getProjectRows(document.projects),
-        ...this.getOtherRows(document),
-      ],
-    });
+      });
 
     doc.addSection({
       children: [table],
     });
+
     this.save(doc);
   }
+
   getTopRow(): TableRow {
-    let headerStrings: any = [
-      "Reporting Manager",
-      "Project",
-      "Task Details",
-      "Hours",
-    ];
-    const prop = {
-      size: 10,
-      color: "black",
-      style: BorderStyle.THICK,
-    };
-    headerStrings = headerStrings.map((cell) => {
-      return new TableCell({
-        children: [
-          new Paragraph({
-            children: [
-              new TextRun({
-                text: cell,
-                bold: true,
-              }),
-            ],
-            alignment: AlignmentType.CENTER,
-          }),
-        ],
-        borders: {
-          top: prop,
-          bottom: prop,
-          left: prop,
-          right: prop,
-        },
-        width: {
-          size: 100,
-          type: WidthType.PERCENTAGE,
-        },
-        verticalAlign: VerticalAlign.CENTER,
-      });
-    });
     return new TableRow({
-      children: headerStrings,
+      children: ["Reporting Manager", "Project", "Task Details", "Hours"].map(
+        (cell) => {
+          return this.getPara(cell, true, false, false, false, false);
+        }
+      ),
     });
   }
 
   getProjectRows(projects: Project[]): TableRow[] {
     let rows = [];
-    projects = projects || [];
     projects.forEach((project) => {
       rows = rows.concat(this.getProjectRow(project));
     });
@@ -240,81 +59,59 @@ export class DocComponent implements OnInit {
   }
 
   getProjectRow(project: Project): TableRow[] {
-    const rows = [];
-    const lines = project.tasks.length;
-    let row = new TableRow({
-      height: {
-        height: 500,
-        rule: HeightRule.AUTO,
-      },
-      children: [
-        this.getCell(project.managerName, true, 1 === lines),
-        this.getCell(project.projectName, true, 1 === lines),
-        this.getCell("- " + project.tasks[0].label, true, 1 === lines),
-        this.getCell(
-          "- " + this.getTime(Number(project.tasks[0].time)),
-          true,
-          1 === lines
-        ),
-        //         contextualSpacing: true,
-      ],
-    });
-    rows.push(row);
-    for (let i = 1; i < project.tasks.length; i++) {
-      row = new TableRow({
+    const rows = [],
+      lines = project.tasks.length;
+    let row;
+    rows.push(
+      new TableRow({
         height: {
           height: 500,
           rule: HeightRule.AUTO,
         },
         children: [
-          this.getCell("", false, i + 1 === lines),
-          this.getCell("", false, i + 1 === lines),
-          this.getCell("- " + project.tasks[i].label, false, i + 1 === lines),
+          this.getCell(project.managerName, true, 1 === lines),
+          this.getCell(project.projectName, true, 1 === lines),
+          this.getCell("- " + project.tasks[0].label, true, 1 === lines),
           this.getCell(
-            "- " + this.getTime(Number(project.tasks[i].time)),
-            false,
-            i + 1 === lines
+            "- " + this.getTime(Number(project.tasks[0].time)),
+            true,
+            1 === lines
           ),
         ],
-      });
-      rows.push(row);
+      })
+    );
+    for (let i = 1; i < project.tasks.length; i++) {
+      row.push(
+        new TableRow({
+          height: {
+            height: 500,
+            rule: HeightRule.AUTO,
+          },
+          children: [
+            this.getCell("", false, i + 1 === lines),
+            this.getCell("", false, i + 1 === lines),
+            this.getCell("- " + project.tasks[i].label, false, i + 1 === lines),
+            this.getCell(
+              "- " + this.getTime(Number(project.tasks[i].time)),
+              false,
+              i + 1 === lines
+            ),
+          ],
+        })
+      );
     }
     return rows;
   }
+
   getCell(text: string, isFirst: boolean, isLast: boolean): docx.TableCell {
+    const prop = {
+      size: 0,
+      color: "white",
+      style: BorderStyle.THICK,
+    };
     let border = {};
-    if (!isFirst && !isLast) {
-      border = {
-        bottom: {
-          size: 0,
-          color: "white",
-          style: BorderStyle.THICK,
-        },
-        top: {
-          size: 0,
-          color: "white",
-          style: BorderStyle.THICK,
-        },
-      };
-    }
-    if (!isFirst && isLast) {
-      border = {
-        top: {
-          size: 0,
-          color: "white",
-          style: BorderStyle.THICK,
-        },
-      };
-    }
-    if (!isLast && isFirst) {
-      border = {
-        bottom: {
-          size: 0,
-          color: "white",
-          style: BorderStyle.THICK,
-        },
-      };
-    }
+    if (!isFirst) border = Object.assign(border, { top: prop });
+    if (!isLast) border = Object.assign(border, { bottom: prop });
     return new TableCell({
       children: [
         new Paragraph({
@@ -332,604 +129,131 @@ export class DocComponent implements OnInit {
   }
 
   getTime(time: number) {
-    const hr: string = "" + ~~(time / 60);
-    const mins: string =
-      time % 60 == 0
-        ? "00"
-        : time % 60 < 10
-        ? "0" + (time % 60)
-        : "" + (time % 60);
+    const hr: string = "" + ~~(time / 60),
+      mins: string =
+        time % 60 == 0
+          ? "00"
+          : time % 60 < 10
+          ? "0" + (time % 60)
+          : "" + (time % 60);
     return hr + "." + mins;
   }
 
   getOtherRows(document: Doc): TableRow[] {
-    let activities: OtherActivity[] = [];
-    let rows: TableRow[] = [];
-    rows.push(
+    return [
       new TableRow({
         children: [
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "- Break",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              right: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              left: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "- " + this.getTime(60),
-                    bold: true,
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
+          this.getPara("- Break", false, false, false, true, false),
+          this.getPara("", false, false, true, true, false),
+          this.getPara("", false, false, false, true, true),
+          this.getPara(
+            "- " + this.getTime(60),
+            false,
+            false,
+            false,
+            true,
+            false
+          ),
         ],
-      })
-    );
-    rows.push(
+      }),
       new TableRow({
         children: [
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "- Call",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              right: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              left: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "- " + this.getTime(Number(document.calls.time)),
-                    bold: true,
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
+          this.getPara("- Call", false, true, false, true, false),
+          this.getPara("", false, true, true, true, false),
+          this.getPara("", false, true, false, true, true),
+          this.getPara(
+            "- " + this.getTime(Number(document.calls.time)),
+            false,
+            true,
+            false,
+            true,
+            false
+          ),
         ],
-      })
-    );
-    rows.push(
+      }),
       new TableRow({
         children: [
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "- Discussions",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              right: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              left: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text:
-                      "- " + this.getTime(Number(document.discussions.time)),
-                    bold: true,
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              bottom: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
+          this.getPara("- Discussions", false, true, false, true, false),
+          this.getPara("", false, true, true, true, false),
+          this.getPara("", false, true, false, true, true),
+          this.getPara(
+            "- " + this.getTime(Number(document.discussions.time)),
+            false,
+            true,
+            false,
+            true,
+            false
+          ),
         ],
-      })
-    );
-    rows.push(
+      }),
       new TableRow({
         children: [
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "- Miscellaneous",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              right: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-              left: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text:
-                      "- " + this.getTime(Number(document.miscellaneous.time)),
-                    bold: true,
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              top: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
+          this.getPara("- Miscellaneous", false, true, false, false, false),
+          this.getPara("", false, true, true, false, false),
+          this.getPara("", false, true, false, false, true),
+          this.getPara(
+            "- " + this.getTime(Number(document.miscellaneous.time)),
+            false,
+            true,
+            false,
+            false,
+            false
+          ),
         ],
-      })
-    );
-    rows.push(
+      }),
       new TableRow({
         children: [
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "Total",
-                    bold: true,
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              right: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "",
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            borders: {
-              left: {
-                color: "white",
-                size: 0,
-                style: BorderStyle.THICK,
-              },
-            },
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
-          new TableCell({
-            children: [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: "  " + this.getTime(Number(document.totalTime)),
-                    bold: true,
-                  }),
-                ],
-                alignment: AlignmentType.CENTER,
-              }),
-            ],
-            width: {
-              size: 100,
-              type: WidthType.PERCENTAGE,
-            },
-            verticalAlign: VerticalAlign.CENTER,
-          }),
+          this.getPara("Total", true, false, false, false, false),
+          this.getPara("", false, false, true, false, false),
+          this.getPara("", false, false, false, false, true),
+          this.getPara(
+            "- " + this.getTime(Number(document.totalTime)),
+            true,
+            false,
+            false,
+            false,
+            false
+          ),
         ],
-      })
-    );
-    return rows;
+      }),
+    ];
+  }
+
+  getPara(
+    text: string,
+    bold: boolean,
+    top: boolean,
+    right: boolean,
+    bottom: boolean,
+    left: boolean
+  ): TableCell {
+    const prop = {
+      color: "white",
+      size: 0,
+      style: BorderStyle.THICK,
+    };
+    let border = {},
+      textRun = {};
+    textRun = Object.assign(bold, { text });
+    if (bold) textRun = Object.assign(textRun, { bold: true });
+    if (top) border = Object.assign(border, { top: prop });
+    if (right) border = Object.assign(border, { right: prop });
+    if (bottom) border = Object.assign(border, { bottom: prop });
+    if (left) border = Object.assign(border, { left: prop });
+    return new TableCell({
+      children: [
+        new Paragraph({
+          children: [new TextRun(textRun)],
+          alignment: AlignmentType.CENTER,
+        }),
+      ],
+      borders: border,
+      width: {
+        size: 100,
+        type: WidthType.PERCENTAGE,
+      },
+      verticalAlign: VerticalAlign.CENTER,
+    });
   }
 
   save(doc: docx.File) {
@@ -966,7 +290,4 @@ export class Project {
   managerName: string;
   tasks: Task[];
   time: number;
-}
-export class OtherActivity {
-  constructor(public label: string, public time: number) {}
 }
